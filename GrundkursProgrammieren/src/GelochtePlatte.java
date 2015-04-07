@@ -7,13 +7,26 @@ public class GelochtePlatte extends MetallPlatte{
 	public GelochtePlatte(double laenge, double breite, int m) {
 		super(laenge, breite);
 		this.loch = new MetallPlatte[m];
-		this.lochLaenge = 1/m;
-		this.breite = 1/m;
+		this.lochLaenge = (1/m) * laenge;
+		this.breite = (1/m) * breite;
 	}
 	
 	public void neuesLochStanzen() {
-		if (anzahlLoecher < loch.length) {
-			
+		for(int i = 0; i < this.loch.length; i++) {
+			if (this.loch[i] == null) {
+				this.loch[i] = new MetallPlatte(this.lochLaenge, this.lochBreite);
+				anzahlLoecher++;
+				System.out.println("Loch erfolgreich gestanzt");
+			}
+			else {
+				System.out.println("Loch stanzen nicht möglich");
+			}
 		}
+	}
+	
+	public double flaeche() {
+		double f;
+		f = super.flaeche();
+		return f - (this.anzahlLoecher * (this.lochLaenge * this.lochBreite));
 	}
 }
